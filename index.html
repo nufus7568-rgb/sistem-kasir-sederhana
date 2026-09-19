@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HayaPOS - Sistem Kasir</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <h2>HayaPOS</h2>
+
+    <div class="menu active" onclick="showPage('kasir', this)">
+        🧾 <span>Kasir</span>
+    </div>
+
+    <div class="menu" onclick="showPage('produk', this)">
+        📦 <span>Produk</span>
+    </div>
+
+    <div class="menu" onclick="showPage('transaksi', this)">
+        📋 <span>Transaksi</span>
+    </div>
+
+    <div class="menu" onclick="showPage('laporan', this)">
+        📊 <span>Laporan</span>
+    </div>
+
+</aside>
+
+
+<!-- CONTENT -->
+<main class="content">
+
+
+    <!-- ================= KASIR ================= -->
+
+    <section id="kasirPage">
+
+        <div class="header">
+            <h1>Sistem Kasir</h1>
+            <p>Selamat datang di HayaPOS</p>
+        </div>
+
+
+        <div class="main">
+
+            <!-- PRODUK -->
+            <section class="products">
+
+                <h2>Daftar Produk</h2>
+
+                <p class="info">
+                    Klik produk untuk menambahkan ke keranjang
+                </p>
+
+
+                <div class="product-list">
+
+                    <button class="product"
+                        onclick="addProduct('Indomie Goreng', 3000)">
+
+                        <div class="icon">🍜</div>
+
+                        <h3>Indomie Goreng</h3>
+
+                        <p>Rp 3.000</p>
+
+                    </button>
+
+
+                    <button class="product"
+                        onclick="addProduct('Teh Botol', 5000)">
+
+                        <div class="icon">🥤</div>
+
+                        <h3>Teh Botol</h3>
+
+                        <p>Rp 5.000</p>
+
+                    </button>
+
+
+                    <button class="product"
+                        onclick="addProduct('Roti Coklat', 4000)">
+
+                        <div class="icon">🍞</div>
+
+                        <h3>Roti Coklat</h3>
+
+                        <p>Rp 4.000</p>
+
+                    </button>
+
+
+                    <button class="product"
+                        onclick="addProduct('Air Mineral', 2000)">
+
+                        <div class="icon">💧</div>
+
+                        <h3>Air Mineral</h3>
+
+                        <p>Rp 2.000</p>
+
+                    </button>
+
+
+                    <button class="product"
+                        onclick="addProduct('Mie Sedaap', 3500)">
+
+                        <div class="icon">🍜</div>
+
+                        <h3>Mie Sedaap</h3>
+
+                        <p>Rp 3.500</p>
+
+                    </button>
+
+
+                    <button class="product"
+                        onclick="addProduct('Susu UHT', 4500)">
+
+                        <div class="icon">🥛</div>
+
+                        <h3>Susu UHT</h3>
+
+                        <p>Rp 4.500</p>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- KERANJANG -->
+            <section class="transaction">
+
+                <h2>Keranjang</h2>
+
+                <div id="cart" class="cart">
+
+                    <div class="empty">
+                        🛒
+                        <br><br>
+                        Belum ada produk
+                    </div>
+
+                </div>
+
+
+                <div class="summary">
+
+                    <div class="summary-row total">
+
+                        <span>Total</span>
+
+                        <span id="total">
+                            Rp 0
+                        </span>
+
+                    </div>
+
+
+                    <label>
+                        Uang Pembayaran
+                    </label>
+
+                    <input
+                        type="number"
+                        id="payment"
+                        placeholder="Masukkan uang pembayaran"
+                        oninput="calculateChange()"
+                    >
+
+
+                    <div class="summary-row">
+
+                        <span>Kembalian</span>
+
+                        <strong id="change">
+                            Rp 0
+                        </strong>
+
+                    </div>
+
+
+                    <button class="btn"
+                        onclick="printReceipt()">
+
+                        🖨️ Cetak Struk
+
+                    </button>
+
+
+                    <button class="btn reset"
+                        onclick="resetTransaction()">
+
+                        🔄 Transaksi Baru
+
+                    </button>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= PRODUK ================= -->
+
+    <section id="produkPage" class="page">
+
+        <div class="header">
+
+            <h1>Produk</h1>
+
+            <p>Daftar produk HayaPOS</p>
+
+        </div>
+
+
+        <div class="page-box">
+
+            <div class="page-header">
+
+                <h2>Daftar Produk</h2>
+
+                <button class="add-btn"
+                    onclick="alert('Fitur tambah produk belum menggunakan database.')">
+
+                    + Tambah Produk
+
+                </button>
+
+            </div>
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Produk</th>
+                        <th>Harga</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+                        <td>1</td>
+                        <td>Indomie Goreng</td>
+                        <td>Rp 3.000</td>
+                        <td><span class="available">Tersedia</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>Teh Botol</td>
+                        <td>Rp 5.000</td>
+                        <td><span class="available">Tersedia</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <td>Roti Coklat</td>
+                        <td>Rp 4.000</td>
+                        <td><span class="available">Tersedia</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>4</td>
+                        <td>Air Mineral</td>
+                        <td>Rp 2.000</td>
+                        <td><span class="available">Tersedia</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>5</td>
+                        <td>Mie Sedaap</td>
+                        <td>Rp 3.500</td>
+                        <td><span class="available">Tersedia</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>6</td>
+                        <td>Susu UHT</td>
+                        <td>Rp 4.500</td>
+                        <td><span class="available">Tersedia</span></td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= TRANSAKSI ================= -->
+
+    <section id="transaksiPage" class="page">
+
+        <div class="header">
+
+            <h1>Transaksi</h1>
+
+            <p>Riwayat transaksi</p>
+
+        </div>
+
+
+        <div class="page-box">
+
+            <h2>Riwayat Transaksi</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>No</th>
+                        <th>Tanggal</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+                        <td>1</td>
+                        <td>18 September 2026</td>
+                        <td>Rp 19.000</td>
+                        <td><span class="success">Selesai</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>17 September 2026</td>
+                        <td>Rp 12.000</td>
+                        <td><span class="success">Selesai</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <td>16 September 2026</td>
+                        <td>Rp 25.000</td>
+                        <td><span class="success">Selesai</span></td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= LAPORAN ================= -->
+
+    <section id="laporanPage" class="page">
+
+        <div class="header">
+
+            <h1>Laporan</h1>
+
+            <p>Ringkasan penjualan HayaPOS</p>
+
+        </div>
+
+
+        <div class="report-grid">
+
+
+            <div class="report-card">
+
+                <div class="report-icon">
+                    💰
+                </div>
+
+                <h3>Total Penjualan</h3>
+
+                <h2>
+                    Rp 56.000
+                </h2>
+
+            </div>
+
+
+            <div class="report-card">
+
+                <div class="report-icon">
+                    🧾
+                </div>
+
+                <h3>Total Transaksi</h3>
+
+                <h2>
+                    3
+                </h2>
+
+            </div>
+
+
+            <div class="report-card">
+
+                <div class="report-icon">
+                    📦
+                </div>
+
+                <h3>Total Produk</h3>
+
+                <h2>
+                    6
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="page-box report-box">
+
+            <h2>Ringkasan Penjualan</h2>
+
+            <p>
+                HayaPOS merupakan sistem kasir sederhana
+                berbasis web yang digunakan untuk membantu
+                proses transaksi penjualan.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- ================= STRUK ================= -->
+
+<div id="receipt">
+
+    <div class="receipt-title">
+
+        <h2>HAYAPOS</h2>
+
+        <p>Sistem Kasir</p>
+
+        <p>Jl. Contoh No. 10</p>
+
+        <p>Indonesia</p>
+
+    </div>
+
+
+    <div class="receipt-line"></div>
+
+
+    <p>
+        Tanggal:
+        <span id="receiptDate"></span>
+    </p>
+
+    <p>
+        Kasir: Hayaton
+    </p>
+
+
+    <div class="receipt-line"></div>
+
+
+    <div id="receiptItems"></div>
+
+
+    <div class="receipt-line"></div>
+
+
+    <div class="receipt-total">
+
+        <span>Total</span>
+
+        <span id="receiptTotal">
+            Rp 0
+        </span>
+
+    </div>
+
+
+    <div class="receipt-total">
+
+        <span>Bayar</span>
+
+        <span id="receiptPayment">
+            Rp 0
+        </span>
+
+    </div>
+
+
+    <div class="receipt-total">
+
+        <span>Kembali</span>
+
+        <span id="receiptChange">
+            Rp 0
+        </span>
+
+    </div>
+
+
+    <div class="receipt-line"></div>
+
+
+    <div class="thanks">
+
+        <p>TERIMA KASIH</p>
+
+        <p>SELAMAT BERBELANJA</p>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
